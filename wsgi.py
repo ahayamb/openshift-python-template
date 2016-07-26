@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 
-from app import app as application
+from main_source import app as application
 
 ip = os.environ.get('OPENSHIFT_PYTHON_IP', 'localhost')
 port = int(os.environ.get('OPENSHIFT_PYTHON_PORT', 8051))
