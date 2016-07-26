@@ -1,21 +1,24 @@
-import os
+import os, json
 
-# PATH_NAME = 'OPENSHIFT_PYTHON_DIR'
-# virtenv = os.environ.get(PATH_NAME, '') + 'virtenv/venv/'
-# virtualenv = os.path.join(virtenv, 'bin/activate_this.py')
+from flask import Flask, jsonify
 
-# try:
-# 	exec(compile(open(virtualenv, 'rb').read(), virtualenv, 'exec'), dict(__file__=virtualenv))
-# except:
-# 	pass
-
-from flask import Flask
+class People:
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+@app.route('/entities')
+def get_entities():
+	peoples = [People('Ahmad', 20), People('Hayam', 24)]
+	mappedPeoples = [i for i in map(lambda x: x.__dict__, peoples)]
+
+	return jsonify(mappedPeoples)
 
 if __name__ == '__main__':
     app.run(debug = True)
